@@ -18,11 +18,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connectionString = builder.Configuration.GetConnectionString("DemoSeriLogDB");
 
+
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Seq("http://localhost:5165/")
     .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day)
-     /* .WriteTo.MSSqlServer(connectionString, sinkOptions: new MSSqlServerSinkOptions { TableName = "Log" }, null, null,
-          LogEventLevel.Information, null, null, null, null)*/
+    /* .WriteTo.MSSqlServer(connectionString, sinkOptions: new MSSqlServerSinkOptions { TableName = "Log" }, null, null,
+         LogEventLevel.Information, null, null, null, null)*/
     .CreateLogger();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
