@@ -73,7 +73,7 @@ namespace Smash_Cats.Controllers
 
         public IActionResult Contact()
         {
-            /*var checkoutUrl = _urlHelper.Page("/Checkout");*/
+            var checkoutUrl = _urlHelper.Page("/Checkout");
             return View();
         }
 
