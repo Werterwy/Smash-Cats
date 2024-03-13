@@ -18,8 +18,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connectionString = builder.Configuration.GetConnectionString("DemoSeriLogDB");
 
-
-
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Seq("http://localhost:5165/")
     .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day)

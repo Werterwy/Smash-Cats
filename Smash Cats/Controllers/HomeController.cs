@@ -31,8 +31,6 @@ namespace Smash_Cats.Controllers
         {
 
             HttpContext.Session.SetString("DB", "27112003");
-            //var data2 = _httpContext.HttpContext.Request.Cookies["Iin"];
-
 
             var sessionData = HttpContext.Session.GetString("DB");
 
