@@ -47,7 +47,7 @@ namespace Smash_Cats.Controllers
             _logger.LogError("У пользователя {email} возникла ошибка {errorMessage}", email, "Ошибка пользователя");
 
 
-            Stopwatch sw = new Stopwatch();
+         /*   Stopwatch sw = new Stopwatch();
 
             sw.Start();
             /// вызов чужого сервиса
@@ -57,7 +57,7 @@ namespace Smash_Cats.Controllers
 
             //var data = sw.ElapsedMilliseconds;
 
-            _logger.LogInformation("Сервис отработал за {ElapsedMilliseconds}", sw.ElapsedMilliseconds);
+            _logger.LogInformation("Сервис отработал за {ElapsedMilliseconds}", sw.ElapsedMilliseconds);*/
 
             _logger.LogInformation("logging Information");
             _logger.LogCritical("Logging Critical");
