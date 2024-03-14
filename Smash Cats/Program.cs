@@ -28,6 +28,8 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Services.AddControllersWithViews();
 
+
+
 builder.Host.UseSerilog(Log.Logger);
 
 builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
@@ -62,6 +64,8 @@ app.UseStaticFiles();
 app.UseSession();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
