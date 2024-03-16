@@ -37,6 +37,22 @@
                 <nav role="navigation" class="navigation-menu w-nav-menu">
                     <a asp-area="" asp-action="Index" asp-controller="Home" aria-current="page" class="navigation-link w-nav-link w--current">Home</a>
                     <a asp-area="" asp-action="Index" asp-controller="Contact" class="navigation-link w-nav-link">Contact</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <a asp-controller="Login" asp-action="Logout" class="navigation-link w-nav-link">
+                                @User.Identity.Name |
+                                LOGOUT
+
+                            </a>
+                        }
+                        else
+                        {
+                        <a asp-controller="Login" asp-action="Index" class="navigation-link w-nav-link">
+                                @User.Identity.Name |
+                                LOGIN
+
+                            </a>
+                        }
                 </nav>
                 <div class="hamburger-button w-nav-button">
                     <div class="w-icon-nav-menu"></div>

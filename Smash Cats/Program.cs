@@ -80,7 +80,7 @@ builder.Services.AddAuthentication
     (CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Home/Index";
+        options.LoginPath = "/Login/Index";
     });
 
 var app = builder.Build();
