@@ -1,5 +1,14 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Builder;
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options;
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IOptions<RequestLocalizationOptions> locOptions
+@inject IViewLocalizer _lang
+@{
     ViewData["Title"] = "Home Page";
+    var cultureList = locOptions.Value.SupportedUICultures;
 }
 
 @*<div class="text-center">
@@ -22,6 +31,26 @@
         <div class="section-title-group">
             <h2 class="section-heading centered">What kind of game is it</h2>
             <div class="section-subheading center">Smash Cats is played by two players</div>
+
+
+           @* <h3>@_lang["aboutus"]</h3>
+       
+
+            <h3>about us</h3>
+
+            <form asp-action="Index" id="cultureForm">
+                <Lable>Language:</Lable>
+                <select onchange="SetCulture(this.value);">
+                    <option>Выберите язык</option>
+                    @foreach (var item in locOptions.Value.SupportedCultures)
+                    {
+                        <option value="@item.Name">
+                            @item.Name | @item.DisplayName
+                        </option>
+                    }
+                </select>
+            </form>*@
+
         </div>
         <div class="w-row">
             <div class="w-col w-col-4">
@@ -96,25 +125,82 @@
                 <div data-w-tab="Tab 1" class="w-tab-pane">
                     <div>
                         <img src="images/designer.jpg" sizes="(max-width: 479px) 96vw, (max-width: 767px) 97vw, (max-width: 991px) 95vw, 940px" srcset="images/designer-p-500.jpg 500w, images/designer-p-800.jpg 800w, images/designer.jpg 958w" alt="" class="fullwidth-image" />
-                        <h2>About Us</h2>
+                        <h3>@_lang["aboutus"]</h3>
+
                         <p>Together we developed Smash Cats. It took us 3 months to create and release the game, and during these months we learned a lot from our mistakes, and also realized that if we don’t lose faith and go to the end, we can achieve any goals we set.</p>
+                        <form asp-action="Index" id="cultureForm">
+                            <lable>Language:</lable>
+                            <select onchange="SetCulture(this.value);">
+                                <option selected value="">Выберите язык</option>
+                                @foreach (var item in locOptions.Value.SupportedCultures)
+                                {
+                                    <option value="@item.Name">
+                                        @item.Name | @item.DisplayName
+                                    </option>
+
+                                }
+                            </select>
+
+                        </form>
                     </div>
                 </div>
+                
                 <div data-w-tab="Tab 2" class="w-tab-pane">
                     <div>
                         <img src="images/graphic.jpg" sizes="(max-width: 479px) 96vw, (max-width: 767px) 97vw, (max-width: 991px) 95vw, 940px" srcset="images/graphic-p-500.jpg 500w, images/graphic-p-800.jpg 800w, images/graphic-p-1080.jpg 1080w, images/graphic.jpg 1280w" alt="" class="fullwidth-image" />
-                        <h2>About Us</h2>
+                        <h2>@_lang["aboutus"]</h2>
+                        
                         <p>Together we developed Smash Cats. It took us 3 months to create and release the game, and during these months we learned a lot from our mistakes, and also realized that if we don’t lose faith and go to the end, we can achieve any goals we set.</p>
+                        <form asp-action="Index" id="cultureForm">
+                            <lable>Language:</lable>
+                            <select onchange="SetCulture(this.value);">
+                                <option selected value="">Выберите язык</option>
+                                @foreach (var item in locOptions.Value.SupportedCultures)
+                                {
+                                    <option value="@item.Name">
+                                        @item.Name | @item.DisplayName
+                                    </option>
+
+                                }
+                            </select>
+
+                        </form>
                     </div>
                 </div>
                 <div data-w-tab="Tab 3" class="w-tab-pane w--tab-active">
                     <div>
                         <img src="images/developer.jpg" sizes="(max-width: 479px) 96vw, (max-width: 767px) 97vw, (max-width: 991px) 95vw, 940px" srcset="images/developer-p-500.jpg 500w, images/developer-p-800.jpg 800w, images/developer-p-1080.jpg 1080w, images/developer.jpg 1203w" alt="" class="fullwidth-image" />
-                        <h2>About Us</h2>
+                        <h2>@_lang["aboutus"]</h2>
                         <p>Together we developed Smash Cats. It took us 3 months to create and release the game, and during these months we learned a lot from our mistakes, and also realized that if we don’t lose faith and go to the end, we can achieve any goals we set.</p>
+                        <form asp-action="Index" id="cultureForm">
+                            <lable>Language:</lable>
+                            <select onchange="SetCulture(this.value);">
+                                <option selected value="">Выберите язык</option>
+                                @foreach (var item in locOptions.Value.SupportedCultures)
+                                {
+                                    <option value="@item.Name">
+                                        @item.Name | @item.DisplayName
+                                    </option>
+
+                                }
+                            </select>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        function SetCulture(selectValue) {
+            var culture = "/?culture=" + selectValue + "&cultureIU=" + selectValue;
+
+            document.getElementById("cultureForm").action = culture;
+            document.getElementById("cultureForm").submit();
+        }
+    </script>
+
+}

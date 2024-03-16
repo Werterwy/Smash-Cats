@@ -13,13 +13,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 string connectionString = builder.Configuration.GetConnectionString("DemoSeriLogDB");
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Seq("http://localhost:5141/")
+    .WriteTo.Seq("http://localhost:5341/")
     .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day)
     /* .WriteTo.MSSqlServer(connectionString, sinkOptions: new MSSqlServerSinkOptions { TableName = "Log" }, null, null,
          LogEventLevel.Information, null, null, null, null)*/
@@ -28,11 +29,32 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddMvc().AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+	var cultures = new[]
+	{
+		new CultureInfo("ru-Ru"),
+		new CultureInfo("kz-Kz"),
+		new CultureInfo("en-Us")
+	};
+
+	options.DefaultRequestCulture = new RequestCulture("ru-Ru", "ru-Ru");
+	options.SupportedCultures = cultures;
+	options.SupportedUICultures = cultures;
+
+});
+
+
+builder.Services.AddLocalization(option =>
+option.ResourcesPath = "Resources");
 
 builder.Host.UseSerilog(Log.Logger);
 
 builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.Configure<CookieTempDataProviderOptions>
     (options =>
@@ -49,8 +71,17 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromSeconds(5);
+    options.Cookie.HttpOnly = true;
     options.Cookie.Name = ".SmachCats.Session";
 });
+
+
+builder.Services.AddAuthentication
+    (CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Home/Index";
+    });
 
 var app = builder.Build();
 
@@ -64,6 +95,11 @@ app.UseStaticFiles();
 app.UseSession();
 
 app.UseRouting();
+
+
+var localOptios = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+
+app.UseRequestLocalization(localOptios.Value);
 
 app.UseAuthentication();
 

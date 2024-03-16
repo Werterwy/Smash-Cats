@@ -13,6 +13,7 @@ using System.Linq;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 
 namespace Smash_Cats.Controllers
 {
@@ -20,16 +21,30 @@ namespace Smash_Cats.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUrlHelper _urlHelper;
+        private readonly IStringLocalizer<HomeController> _local;
 
-        public HomeController(ILogger<HomeController> logger/*, IUrlHelper urlHelper*/)
+        public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> local)
         {
             _logger = logger;
+            _local = local;
             /*_urlHelper = urlHelper;*/
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string culture, string cultureIU)
         {
 
+            ViewBag.AboutUs = _local["aboutus"];
+
+            GetCulture(culture);
+
+            if (!string.IsNullOrWhiteSpace(culture))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(culture);
+                CultureInfo.CurrentUICulture = new CultureInfo(culture);
+
+            }
+
+            _logger.LogInformation("TEST Message");
             HttpContext.Session.SetString("DB", "27112003");
 
             var sessionData = HttpContext.Session.GetString("DB");
@@ -68,6 +83,37 @@ namespace Smash_Cats.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+
+        public string GetCulture(string code = "")
+        {
+            if (!string.IsNullOrWhiteSpace(code))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(code);
+                CultureInfo.CurrentUICulture = new CultureInfo(code);
+
+                ViewBag.Culture = string.Format("CurrentCulture: {0}, CurrentUICulture: {1}", CultureInfo.CurrentCulture,
+                    CultureInfo.CurrentUICulture);
+            }
+            return "";
+        }
+
+        public IActionResult AboutUs()
+        {
+
+            string key = "IIN";
+            string value = "880111300392";
+
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(1);
+
+            Response.Cookies.Append(key, value);
+            Response.Cookies.Append("key_2", value);
+            Response.Cookies.Append("key_3", value);
+
+
+
             return View();
         }
 
