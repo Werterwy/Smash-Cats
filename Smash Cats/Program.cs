@@ -13,11 +13,16 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
+using Smash_Cat;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-string connectionString = builder.Configuration.GetConnectionString("DemoSeriLogDB");
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<SmashCatsContext>(
+    options => options.UseSqlServer(connectionString));
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Seq("http://localhost:5341/")

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Smash_Cats.Models;
+using Newtonsoft.Json;
 
 namespace Smash_Cats.Controllers
 {
@@ -12,8 +14,20 @@ namespace Smash_Cats.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            List<Room> rooms = new List<Room>();
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var responce = await httpClient
+                    .GetAsync("http://localhost:5031/api/Room"))
+                {
+                    string apiResponce = await responce.Content.ReadAsStringAsync();
+
+                    rooms = JsonConvert.DeserializeObject<List<Room>>(apiResponce);
+                }
+            }
             _logger.LogInformation("logging Information");
             _logger.LogCritical("Logging Critical");
             _logger.LogDebug("Logging Debug");
