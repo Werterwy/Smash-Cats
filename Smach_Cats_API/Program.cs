@@ -1,14 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Smach_Cats_API.Data;
 using Smash_Cat;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-/*string connectionString = builder.Configuration.GetConnectionString("DefaultConnection1");
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<SmashCatsContext>(
-    options => options.UseSqlServer(connectionString));*/
+builder.Services.AddDbContext<SmashCATsContext>(
+    options => options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

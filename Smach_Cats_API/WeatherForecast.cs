@@ -1,4 +1,4 @@
-namespace Smash_Cats_API
+namespace Smach_Cats_API
 {
     public class WeatherForecast
     {
