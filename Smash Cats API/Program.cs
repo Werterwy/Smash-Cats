@@ -3,13 +3,12 @@ using Smash_Cat;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 
-/*string connectionStringDC = builder.Configuration.GetConnectionString("DefaultConnection");
+/*string connectionString = builder.Configuration.GetConnectionString("DefaultConnection1");
 
 builder.Services.AddDbContext<SmashCatsContext>(
-    options => options.UseSqlServer(connectionStringDC));*/
-
-// Add services to the container.
+    options => options.UseSqlServer(connectionString));*/
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

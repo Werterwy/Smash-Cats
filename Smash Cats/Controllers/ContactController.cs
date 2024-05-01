@@ -16,7 +16,7 @@ namespace Smash_Cats.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Room> rooms = new List<Room>();
+            List<User> users = new List<User>();
 
             using (var httpClient = new HttpClient())
             {
@@ -25,7 +25,7 @@ namespace Smash_Cats.Controllers
                 {
                     string apiResponce = await responce.Content.ReadAsStringAsync();
 
-                    rooms = JsonConvert.DeserializeObject<List<Room>>(apiResponce);
+                    users = JsonConvert.DeserializeObject<List<User>>(apiResponce);
                 }
             }
             _logger.LogInformation("logging Information");

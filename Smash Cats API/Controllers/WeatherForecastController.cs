@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Smash.Cats.API.Controllers
+namespace Smash_Cats_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
