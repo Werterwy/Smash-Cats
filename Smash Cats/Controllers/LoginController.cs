@@ -50,38 +50,83 @@ namespace Smash_Cats.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Login(string login, string password, string ReturnUrl)
-        {
+		/* [HttpPost]
+		 public async Task<IActionResult> Login(string login, string password, string email, string ReturnUrl)
+		 {
 
-            if (login == "admin" && password == "admin")
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, login)
-                };
-                var claimsIdentity = new ClaimsIdentity(claims, "Login");
+			 if (login == "admin" && password == "admin")
+			 {
+				 var claims = new List<Claim>
+				 {
+					 new Claim(ClaimTypes.Name, login)
+				 };
+				 var claimsIdentity = new ClaimsIdentity(claims, "Login");
 
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                     new ClaimsPrincipal(claimsIdentity));
+				 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+					  new ClaimsPrincipal(claimsIdentity));
 
-                // HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+				 // HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                if (string.IsNullOrEmpty(ReturnUrl))
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    return Redirect(ReturnUrl);
-                }
+				 if (string.IsNullOrEmpty(ReturnUrl))
+				 {
+					 return RedirectToAction("Index", "Home");
+				 }
+				 else
+				 {
+					 return Redirect(ReturnUrl);
+				 }
 
-                /* Task.Delay(100).Wait();
-                 return Redirect(ReturnUrl);*/
-            }
-            return View();
-        }
-        public IActionResult Logout()
+				 *//* Task.Delay(100).Wait();
+				  return Redirect(ReturnUrl);*//*
+			 }
+			 return View();
+		 }*/
+
+		[HttpPost]
+		public async Task<IActionResult> Login(string login, string password, string email, string ReturnUrl)
+		{
+
+			var user = new User
+			{
+				Name = login,
+				Email = email,
+				Password = password 
+			};
+
+			using (var httpClient = new HttpClient())
+			{
+				// заголовка авторизации
+				// httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Jwt);
+
+				// Сериализация объекта пользователя в формат JSON
+				var jsonUser = JsonConvert.SerializeObject(user);
+
+				// HTTP-запроса POST для отправки данных пользователя на API
+				var response = await httpClient.PostAsync("http://localhost:5235/api/Login", new StringContent(jsonUser, Encoding.UTF8, "application/json"));
+
+				if (response.IsSuccessStatusCode)
+				{
+					_logger.LogInformation("Данные пользователя успешно отправлены на API.");
+
+					return RedirectToAction("Index", "Home");
+				}
+				else
+				{
+					_logger.LogError("Ошибка при отправке данных пользователя на API. Код ошибки: {StatusCode}", response.StatusCode);
+				}
+			}
+
+			if (string.IsNullOrEmpty(ReturnUrl))
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			else
+			{
+				return Redirect(ReturnUrl);
+			}
+		}
+
+		public IActionResult Logout()
         {
 
             HttpContext.SignOutAsync();
