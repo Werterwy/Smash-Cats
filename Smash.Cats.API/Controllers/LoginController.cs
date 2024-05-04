@@ -9,6 +9,8 @@ namespace Smash.Cats.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    // без него не работало
 	[Consumes("application/json")]
 	public class LoginController : ControllerBase
     {
@@ -47,8 +49,8 @@ namespace Smash.Cats.API.Controllers
         public User Post([FromBody] User user)
         {
             user.Id = 0;
-
-			user.Password = HashPassword(user.Password); // Хэширование пароля
+            // Хэширование пароля (экперимент)
+			user.Password = HashPassword(user.Password); 
 
 
 			_db.Users.Add(user);
@@ -57,19 +59,19 @@ namespace Smash.Cats.API.Controllers
             return user;
         }
 
-        [HttpPost("Authenticate")]
-        public StatusCodeResult Authenticate(User user)
-        {
-            var existingUser = _db.Users.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password);
-            if (existingUser != null)
-            {
-                return Ok();
-            }
- 
-            return NotFound();
-        }
+		[HttpPost("Authenticate")]
+		public IActionResult Authenticate(User user)
+		{
+			var existingUser = _db.Users.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+			if (existingUser != null)
+			{
+				return Ok(existingUser);
+			}
 
-        [HttpPut]
+			return NotFound("Invalid username or password");
+		}
+
+		[HttpPut]
         public StatusCodeResult Put([FromForm] User user)
         {
             var data = _db.Users.FirstOrDefault(f => f.Id == user.Id);
