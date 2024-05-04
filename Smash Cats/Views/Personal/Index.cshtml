@@ -7,12 +7,29 @@
 @{
 	ViewData["Title"] = "Personal Area";
 }
+@model User
 
 @section style {
-	<link href="css/personal.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/personal.css" type="text/css" />
 }
 
-<div class="signup-container">
-	<h2>Personal Area for Smash Cats</h2>
+<div class="personal-container">
+    <h1>Личный кабинет</h1>
 
+    <div class="profile">
+        <h2>Профиль</h2>
+        <p><strong>Имя пользователя:</strong> @Model.Name</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <!-- Добавьте другие данные пользователя -->
+    </div>
+
+    <div class="achievements">
+        <h2>Достижения</h2>
+        <ul>
+            <li>Достижение 1</li>
+            <li>Достижение 2</li>
+        </ul>
+    </div>
+
+    <a href="#">Ссылка на презентацию</a>
 </div>

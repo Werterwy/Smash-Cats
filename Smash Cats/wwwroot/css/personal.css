@@ -1,6 +1,6 @@
 /* signup.css */
 
-.signup-container {
+.personal-container {
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
@@ -9,10 +9,10 @@
     border-radius: 5px;
 }
 
-.signup-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
+    .personal-container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
 
 .form-group {
     margin-bottom: 50px;

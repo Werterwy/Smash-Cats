@@ -11,10 +11,6 @@
     var cultureList = locOptions.Value.SupportedUICultures;
 }
 
-@*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>*@
 
 <div class="hero-section centered">
     <div data-w-id="e464d218-f801-55d1-1f50-7da00b5bfb8f" style="opacity:0" class="w-container">
@@ -31,25 +27,6 @@
         <div class="section-title-group">
             <h2 class="section-heading centered">What kind of game is it</h2>
             <div class="section-subheading center">Smash Cats is played by two players</div>
-
-
-           @* <h3>@_lang["aboutus"]</h3>
-       
-
-            <h3>about us</h3>
-
-            <form asp-action="Index" id="cultureForm">
-                <Lable>Language:</Lable>
-                <select onchange="SetCulture(this.value);">
-                    <option>Выберите язык</option>
-                    @foreach (var item in locOptions.Value.SupportedCultures)
-                    {
-                        <option value="@item.Name">
-                            @item.Name | @item.DisplayName
-                        </option>
-                    }
-                </select>
-            </form>*@
 
         </div>
         <div class="w-row">

@@ -27,7 +27,6 @@ namespace Smash_Cats.Controllers
         {
             _logger = logger;
             _local = local;
-            /*_urlHelper = urlHelper;*/
         }
 
         public IActionResult Index(string culture, string cultureIU)
@@ -57,23 +56,6 @@ namespace Smash_Cats.Controllers
 
             string value = Request.Cookies["DB"];
 
-            string email = "ok@ok.com";
-
-            _logger.LogError("У пользователя {email} возникла ошибка {errorMessage}", email, "Ошибка пользователя");
-
-
-         /*   Stopwatch sw = new Stopwatch();
-
-            sw.Start();
-            /// вызов чужого сервиса
-            Thread.Sleep(1000);
-
-            sw.Stop();
-
-            //var data = sw.ElapsedMilliseconds;
-
-            _logger.LogInformation("Сервис отработал за {ElapsedMilliseconds}", sw.ElapsedMilliseconds);*/
-
             _logger.LogInformation("logging Information");
             _logger.LogCritical("Logging Critical");
             _logger.LogDebug("Logging Debug");
@@ -102,24 +84,11 @@ namespace Smash_Cats.Controllers
         public IActionResult AboutUs()
         {
 
-            string key = "IIN";
-            string value = "880111300392";
-
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(1);
-
-            Response.Cookies.Append(key, value);
-            Response.Cookies.Append("key_2", value);
-            Response.Cookies.Append("key_3", value);
-
-
-
             return View();
         }
 
         public IActionResult Contact()
         {
-            //var checkoutUrl = _urlHelper.Page("/Checkout");
             return View();
         }
 
