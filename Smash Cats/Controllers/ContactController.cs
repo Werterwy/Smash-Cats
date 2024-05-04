@@ -16,19 +16,19 @@ namespace Smash_Cats.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<User> users = new List<User>();
+			/*List<User> users = new List<User>();
 
             using (var httpClient = new HttpClient())
             {
                 using (var responce = await httpClient
-                    .GetAsync("http://localhost:5031/api/Room"))
+                    .GetAsync("http://localhost:5235/api/Login"))
                 {
                     string apiResponce = await responce.Content.ReadAsStringAsync();
 
                     users = JsonConvert.DeserializeObject<List<User>>(apiResponce);
                 }
-            }
-            _logger.LogInformation("logging Information");
+            }*/
+			_logger.LogInformation("logging Information");
             _logger.LogCritical("Logging Critical");
             _logger.LogDebug("Logging Debug");
             _logger.LogError("Logging Error");

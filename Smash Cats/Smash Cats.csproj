@@ -31,4 +31,8 @@
     <Folder Include="Resources\Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Smash.Cats\Smash.Cats.API\Smash.Cats.API.csproj" />
+  </ItemGroup>
+
 </Project>

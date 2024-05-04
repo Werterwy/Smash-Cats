@@ -113,7 +113,7 @@
 		<button type="submit" class="btn btn-primary">Sign Up</button>
 	</form>*@
 
-	<form method="post" action="@Url.Action("Login", "Login")">
+@*	<form method="post" action="@Url.Action("Login", "Login")">
 		<div class="form-group">
 			<label for="username">Username</label>
 			<input type="text" class="form-control" id="username" name="login" required>
@@ -122,7 +122,7 @@
 			<label for="email">Email address</label>
 			<input type="email" class="form-control" id="email" name="email" required>
 		</div>
-		@*<div class="form-group">
+		<div class="form-group">
 			<label for="password">Password</label>
 			<div class="input-group">
 				<input type="password" class="form-control" id="password" name="password" required>
@@ -132,13 +132,59 @@
 					</span>
 				</div>
 			</div>
-		</div>*@
+		</div>
 		<div class="form-group">
 			<label for="password">Password</label>
 			<input type="password" class="form-control" id="password" name="password" required>
 		</div>
 		<button type="submit" class="btn btn-primary">Sign Up</button>
+	</form>*@
+
+	<form id="signup-form" method="post" action="@Url.Action("Login", "Login")">
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" class="form-control" id="username" name="login" required>
+		</div>
+		<div class="form-group">
+			<label for="email">Email address</label>
+			<input type="email" class="form-control" id="email" name="email" required>
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" id="password" name="password" required>
+		</div>
+		<button type="submit" class="btn btn-primary">Sign Up</button>
+		<!-- Кнопка "Sign In" -->
+		<button type="button" class="btn btn-secondary" id="signin-button">Sign In</button>
 	</form>
+
+	<form id="signin-form" method="post" action="@Url.Action("SignIn", "Login")" style="display: none;">
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" class="form-control" id="username-signin" name="login" required>
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" id="password-signin" name="password" required>
+		</div>
+		<button type="submit" class="btn btn-primary">Sign In</button>
+	</form>
+
+	<script>
+		// Получаем элементы форм
+		var signupForm = document.getElementById("signup-form");
+		var signinForm = document.getElementById("signin-form");
+
+		// Получаем кнопку "Sign In"
+		var signinButton = document.getElementById("signin-button");
+
+		// Добавляем обработчик события для клика по кнопке "Sign In"
+		signinButton.addEventListener("click", function () {
+			// Скрываем форму для регистрации и отображаем форму для входа
+			signupForm.style.display = "none";
+			signinForm.style.display = "block";
+		});
+	</script>
 
 	@*<script>
 		const passwordField = document.getElementById("password");

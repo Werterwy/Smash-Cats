@@ -15,7 +15,8 @@ namespace Smash_Cats.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IWebHostEnvironment webHost;
-        public LoginController(ILogger<HomeController> logger, IWebHostEnvironment webHost)
+
+		public LoginController(ILogger<HomeController> logger, IWebHostEnvironment webHost)
         {
             _logger = logger;
             this.webHost = webHost;
@@ -133,7 +134,36 @@ namespace Smash_Cats.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        [HttpPost]
+
+		[HttpPost]
+		public async Task<IActionResult> SignIn(string login, string password, string ReturnUrl)
+		{
+			var user = new User
+			{
+				Name = login,
+				Password = password
+			};
+
+			using (var httpClient = new HttpClient())
+			{
+				var jsonUser = JsonConvert.SerializeObject(user);
+				var response = await httpClient.PostAsync("http://localhost:5235/api/Login", new StringContent(jsonUser, Encoding.UTF8, "application/json"));
+
+				if (response.IsSuccessStatusCode)
+				{
+					// Пользователь найден, перенаправляем на личный кабинет
+					return RedirectToAction("Index", "Personal");
+				}
+				else
+				{
+					// Пользователь не найден, возвращаем на страницу входа
+					_logger.LogError("Ошибка входа: Неверное имя пользователя или пароль.");
+					return RedirectToAction("Index", "Login");
+				}
+			}
+		}
+
+		[HttpPost]
         public IActionResult SubcribeNewsletter(IFormFile userFile)
         {
             var data = Request.Form["email"];
