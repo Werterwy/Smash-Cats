@@ -12,7 +12,7 @@ namespace Smash.Cats.API.Controllers
 
     // без него не работало
 	[Consumes("application/json")]
-	public class LoginController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private SmashContext _db;
 
@@ -62,7 +62,8 @@ namespace Smash.Cats.API.Controllers
 		[HttpPost("Authenticate")]
 		public IActionResult Authenticate(User user)
 		{
-			var existingUser = _db.Users.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+            user.Password = HashPassword(user.Password);
+            var existingUser = _db.Users.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password);
 			if (existingUser != null)
 			{
 				return Ok(existingUser);
