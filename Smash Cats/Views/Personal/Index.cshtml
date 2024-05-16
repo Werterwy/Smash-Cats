@@ -18,9 +18,16 @@
 
     <div class="profile">
         <h2>Профиль</h2>
-        <p><strong>Имя пользователя:</strong> @Model.Name</p>
-        <p><strong>Email:</strong> @Model.Email</p>
-        <!-- Добавьте другие данные пользователя -->
+        @if (Model != null)
+        {
+            <p><strong>Имя пользователя:</strong> @Model.Name</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <!-- Добавьте другие данные пользователя -->
+        }
+        else
+        {
+            <p>Информация о пользователе не доступна.</p>
+        }
     </div>
 
     <div class="achievements">

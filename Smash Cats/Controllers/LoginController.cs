@@ -123,7 +123,10 @@ namespace Smash_Cats.Controllers
                     var content = await response.Content.ReadAsStringAsync();
                     var authenticatedUser = JsonConvert.DeserializeObject<User>(content);
 
-                    return RedirectToAction("Index", "Personal", new { id = authenticatedUser.Id });
+                    var userJson = JsonConvert.SerializeObject(authenticatedUser);
+                    HttpContext.Session.SetString("User", userJson);
+
+                    return RedirectToAction("Index", "Personal"/*, authenticatedUser*/ /*new { id = authenticatedUser.Id }*/);
                 }
 				else
 				{
