@@ -17,8 +17,10 @@ namespace Smash.Cats.API.Data
         {
         }
 
-        public virtual DbSet<Room> Rooms { get; set; } = null!;
+       // public virtual DbSet<Room> Rooms { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+
+        public virtual DbSet<Achievement> Achievements { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,6 +35,12 @@ namespace Smash.Cats.API.Data
         {
             modelBuilder.HasDefaultSchema("turganbaev_user");
 
+           /* modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasMany(u => u.Achievements)
+                      .WithOne(a => a.User)
+                      .HasForeignKey(a => a.UserId);
+            });*/
             modelBuilder.Entity<Room>(entity =>
             {
                 entity.Property(e => e.DateTime).HasDefaultValueSql("(N'')");

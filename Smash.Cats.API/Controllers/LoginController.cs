@@ -4,6 +4,7 @@ using Smash.Cats.API.Data;
 using Smash.Cats.API.Models;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace Smash.Cats.API.Controllers
 {
@@ -20,6 +21,66 @@ namespace Smash.Cats.API.Controllers
         {
             _db = db;
         }
+
+        /* [HttpGet]
+         public IEnumerable<User> Get()
+         {
+             return _db.Users.Include(u => u.Achievements);
+         }
+
+         [HttpGet("{id}")]
+         public User Get(int id)
+         {
+             return _db.Users.Include(u => u.Achievements).FirstOrDefault(r => r.Id == id);
+         }
+
+         [HttpPost]
+         public User Post([FromBody] User user)
+         {
+             user.Id = 0;
+             user.Password = HashPassword(user.Password);
+             _db.Users.Add(user);
+             _db.SaveChanges();
+             return user;
+         }
+
+         [HttpPost("Authenticate")]
+         public IActionResult Authenticate(User user)
+         {
+             user.Password = HashPassword(user.Password);
+             var existingUser = _db.Users.Include(u => u.Achievements)
+                                         .FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+             if (existingUser != null)
+             {
+                 return Ok(existingUser);
+             }
+             return NotFound("Invalid username or password");
+         }
+
+         [HttpPut]
+         public StatusCodeResult Put([FromForm] User user, [FromForm] List<string> achievements)
+         {
+             var data = _db.Users.Include(u => u.Achievements).FirstOrDefault(f => f.Id == user.Id);
+
+             if (data != null)
+             {
+                 data.Name = user.Name;
+                 data.Email = user.Email;
+                 data.Password = user.Password;
+
+                 data.Achievements.Clear();
+                 foreach (var achievement in achievements)
+                 {
+                     data.Achievements.Add(new Achievement { Description = achievement });
+                 }
+
+                 _db.Users.Update(data);
+                 _db.SaveChanges();
+                 return Ok();
+             }
+             return NotFound();
+         }*/
+
         [HttpGet]
         public IEnumerable<User> Get()
         {
@@ -50,29 +111,29 @@ namespace Smash.Cats.API.Controllers
         {
             user.Id = 0;
             // Хэширование пароля (экперимент)
-			user.Password = HashPassword(user.Password); 
+            user.Password = HashPassword(user.Password);
 
 
-			_db.Users.Add(user);
-            
+            _db.Users.Add(user);
+
             _db.SaveChanges();
             return user;
         }
 
-		[HttpPost("Authenticate")]
-		public IActionResult Authenticate(User user)
-		{
+        [HttpPost("Authenticate")]
+        public IActionResult Authenticate(User user)
+        {
             user.Password = HashPassword(user.Password);
             var existingUser = _db.Users.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password);
-			if (existingUser != null)
-			{
-				return Ok(existingUser);
-			}
+            if (existingUser != null)
+            {
+                return Ok(existingUser);
+            }
 
-			return NotFound("Invalid username or password");
-		}
+            return NotFound("Invalid username or password");
+        }
 
-		[HttpPut]
+        [HttpPut]
         public StatusCodeResult Put([FromForm] User user)
         {
             var data = _db.Users.FirstOrDefault(f => f.Id == user.Id);
