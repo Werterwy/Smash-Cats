@@ -17,7 +17,8 @@
         <h1 data-ix="fade-in-bottom-page-loads" class="hero-heading">This is Smash Cats</h1>
         <div data-ix="fade-in-bottom-page-loads" class="hero-subheading">Simple fighting game</div>
         <div data-ix="fade-in-bottom-page-loads">
-            <a asp-action="Index" asp-controller="Login" class="button">sign up</a>
+            @*<a asp-action="Index" asp-controller="Login" class="button">sign up</a>*@
+            <a asp-action="Index" asp-controller="Login" class="button" onclick="setIsSignIn(false)">sign up</a>
             <a href="#" class="hollow-button all-caps">Learn more</a>
         </div>
     </div>
@@ -177,6 +178,14 @@
 
             document.getElementById("cultureForm").action = culture;
             document.getElementById("cultureForm").submit();
+        }
+
+        function setIsSignIn(value) {
+            // Ваш код для обработки значения перед переходом
+            console.log("setIsSignIn called with value: " + value);
+
+            // Вернем true, чтобы продолжить переход по ссылке
+            return true;
         }
     </script>
 

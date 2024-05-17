@@ -28,7 +28,7 @@ namespace Smash_Cats.Controllers
             _logger = logger;
             _local = local;
         }
-
+        [IEFillerAttribute]
         public IActionResult Index(string culture, string cultureIU)
         {
 
@@ -63,6 +63,7 @@ namespace Smash_Cats.Controllers
             return View();
         }
 
+        [ServiceFilter(typeof(CatchError))]
         public IActionResult Privacy()
         {
             return View();
@@ -81,6 +82,7 @@ namespace Smash_Cats.Controllers
             return "";
         }
 
+        [IEFillerAttribute]
         public IActionResult AboutUs()
         {
 

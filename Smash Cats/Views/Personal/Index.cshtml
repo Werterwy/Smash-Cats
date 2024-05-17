@@ -22,17 +22,25 @@
         {
             <p><strong>Имя пользователя:</strong> @Model.Name</p>
             <p><strong>Email:</strong> @Model.Email</p>
-            <!-- Добавьте другие данные пользователя -->
         }
         else
         {
+
             <p>Информация о пользователе не доступна.</p>
         }
     </div>
 
     <div class="achievements">
         <h2>Достижения</h2>
-        <form id="achievementsForm" method="post" asp-action="Index">
+        <form id="achievementsForm">
+            <div id="achievementsList">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="achievements[]" placeholder="Введите ваше достижение" />
+                </div>
+            </div>
+            <button type="button" class="btn-secondary" onclick="addAchievement()">Добавить достижение</button>
+        </form>
+        @*<form id="achievementsForm" method="post" asp-action="Index">
             <div id="achievementsList">
                 @if (Model.Achievements != null)
                 {
@@ -50,10 +58,10 @@
             </div>
             <button type="button" class="btn-secondary" onclick="addAchievement()">Добавить достижение</button>
             <button type="submit" class="btn-primary">Сохранить достижения</button>
-        </form>
+        </form>*@
     </div>
 
-    <a href="#">Ссылка на презентацию</a>
+    <a href="~/CatSmash.pdf" class="btn-link">Ссылка на презентацию</a>
 </div>
 
 @section additional_scripts {

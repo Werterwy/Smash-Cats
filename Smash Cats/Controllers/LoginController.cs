@@ -16,6 +16,7 @@ namespace Smash_Cats.Controllers
 	{
 		private readonly ILogger<LoginController> _logger;
 		private IWebHostEnvironment webHost;
+		// private static bool _isSignIn = false;
 
 		public LoginController(ILogger<LoginController> logger, IWebHostEnvironment webHost)
 		{
@@ -43,7 +44,13 @@ namespace Smash_Cats.Controllers
 					rooms = JsonConvert.DeserializeObject<List<User>>(apiResponce);
 				}
 			}
-			return View();
+			/*if (_isSignIn)
+			{
+				return RedirectToAction("Index", "Personal");
+
+            }*/
+
+            return View();
 		}
 
 		public IActionResult Login(string ReturnUrl)
@@ -74,7 +81,7 @@ namespace Smash_Cats.Controllers
 				if (response.IsSuccessStatusCode)
 				{
 					_logger.LogInformation("Данные пользователя успешно отправлены на базу.");
-
+					// _isSignIn = false;
 					return RedirectToAction("Index", "Home");
 				}
 				else
@@ -126,6 +133,8 @@ namespace Smash_Cats.Controllers
                     var userJson = JsonConvert.SerializeObject(authenticatedUser);
                     HttpContext.Session.SetString("User", userJson);
 
+					// _isSignIn = true;
+
                     return RedirectToAction("Index", "Personal"/*, authenticatedUser*/ /*new { id = authenticatedUser.Id }*/);
                 }
 				else
@@ -135,6 +144,11 @@ namespace Smash_Cats.Controllers
 				}
 			}
 		}
+
+		/*public void setIsSignIn(bool isSignIn)
+		{
+			_isSignIn = isSignIn;
+		}*/
 
 
 		[HttpPost]

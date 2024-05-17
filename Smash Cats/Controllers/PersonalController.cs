@@ -21,64 +21,64 @@ namespace Smash_Cats.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet]
+        /* [HttpGet]
+         public async Task<IActionResult> Index()
+         {
+             var userJson = HttpContext.Session.GetString("User");
+             if (!string.IsNullOrEmpty(userJson))
+             {
+                 var user = JsonConvert.DeserializeObject<User>(userJson);
+                 var client = _httpClientFactory.CreateClient();
+
+                 var response = await client.GetAsync($"http://localhost:5235/api/Login/{user.Id}");
+                 if (response.IsSuccessStatusCode)
+                 {
+                     var userFromDb = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
+                     return View(userFromDb);
+                 }
+             }
+             return View();
+         }
+
+         [HttpPost]
+         public async Task<IActionResult> Index(User user, List<string> achievements)
+         {
+             var userJson = JsonConvert.SerializeObject(user);
+             HttpContext.Session.SetString("User", userJson);
+
+             var client = _httpClientFactory.CreateClient();
+             var content = new MultipartFormDataContent
+         {
+             { new StringContent(user.Id.ToString()), "Id" },
+             { new StringContent(user.Name), "Name" },
+             { new StringContent(user.Email), "Email" },
+             { new StringContent(user.Password), "Password" }
+         };
+
+             foreach (var achievement in achievements)
+             {
+                 content.Add(new StringContent(achievement), "achievements");
+             }
+
+             var response = await client.PutAsync("http://localhost:5235/api/Login", content);
+             if (response.IsSuccessStatusCode)
+             {
+                 return RedirectToAction("Index");
+             }
+
+             return View("Error");
+         }*/
+
         public async Task<IActionResult> Index()
         {
             var userJson = HttpContext.Session.GetString("User");
             if (!string.IsNullOrEmpty(userJson))
             {
                 var user = JsonConvert.DeserializeObject<User>(userJson);
-                var client = _httpClientFactory.CreateClient();
-
-                var response = await client.GetAsync($"http://localhost:5235/api/Login/{user.Id}");
-                if (response.IsSuccessStatusCode)
-                {
-                    var userFromDb = JsonConvert.DeserializeObject<User>(await response.Content.ReadAsStringAsync());
-                    return View(userFromDb);
-                }
+                return View(user);
             }
             return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Index(User user, List<string> achievements)
-        {
-            var userJson = JsonConvert.SerializeObject(user);
-            HttpContext.Session.SetString("User", userJson);
-
-            var client = _httpClientFactory.CreateClient();
-            var content = new MultipartFormDataContent
-        {
-            { new StringContent(user.Id.ToString()), "Id" },
-            { new StringContent(user.Name), "Name" },
-            { new StringContent(user.Email), "Email" },
-            { new StringContent(user.Password), "Password" }
-        };
-
-            foreach (var achievement in achievements)
-            {
-                content.Add(new StringContent(achievement), "achievements");
-            }
-
-            var response = await client.PutAsync("http://localhost:5235/api/Login", content);
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return View("Error");
-        }
-        /*
-          public async Task<IActionResult> Index()
-          {
-              var userJson = HttpContext.Session.GetString("User");
-              if (!string.IsNullOrEmpty(userJson))
-              {
-                  var user = JsonConvert.DeserializeObject<User>(userJson);
-                  return View(user);
-              }
-              return View();
-          }*/
 
         /*public async Task<IActionResult> Index(*//*int id*//*  User user)
         {

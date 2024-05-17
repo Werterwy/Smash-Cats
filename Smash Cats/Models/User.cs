@@ -12,7 +12,7 @@ namespace Smash_Cats.Models
         public string Password { get; set; }
 
         // Коллекция достижений
-        public List<Achievement> Achievements { get; set; } = new List<Achievement>();
+        // public List<Achievement> Achievements { get; set; } = new List<Achievement>();
     }
 
     public class Achievement
