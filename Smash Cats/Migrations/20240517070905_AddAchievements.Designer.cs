@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Smash_Cat;
 
@@ -10,9 +11,10 @@ using Smash_Cat;
 namespace Smash_Cats.Migrations
 {
     [DbContext(typeof(SmashCatsContext))]
-    partial class SmashCatsContextModelSnapshot : ModelSnapshot
+    [Migration("20240517070905_AddAchievements")]
+    partial class AddAchievements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
