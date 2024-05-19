@@ -26,6 +26,7 @@ namespace Smash_Cats.Controllers
         public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> local)
         {
             _logger = logger;
+         
             _local = local;
         }
         [IEFillerAttribute]
@@ -45,6 +46,7 @@ namespace Smash_Cats.Controllers
 
             _logger.LogInformation("TEST Message");
             HttpContext.Session.SetString("DB", "27112003");
+
 
             var sessionData = HttpContext.Session.GetString("DB");
 

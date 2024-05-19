@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Smash_Cat;
+using Smash_Cats.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,6 +100,8 @@ app.UseStaticFiles();
 app.UseSession();
 
 app.UseRouting();
+
+//app.UseMiddleware<ContentMiddleware>();
 
 
 var localOptios = app.Services.GetService<IOptions<RequestLocalizationOptions>>();

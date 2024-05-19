@@ -40,25 +40,6 @@
             </div>
             <button type="button" class="btn-secondary" onclick="addAchievement()">Добавить достижение</button>
         </form>
-        @*<form id="achievementsForm" method="post" asp-action="Index">
-            <div id="achievementsList">
-                @if (Model.Achievements != null)
-                {
-                    @foreach (var achievement in Model.Achievements)
-                    {
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="achievements[]" value="@achievement.Description" />
-                        </div>
-                    }
-                }
-                <!-- Начальное поле для ввода достижения -->
-                <div class="form-group">
-                    <input type="text" class="form-control" name="achievements[]" placeholder="Введите ваше достижение" />
-                </div>
-            </div>
-            <button type="button" class="btn-secondary" onclick="addAchievement()">Добавить достижение</button>
-            <button type="submit" class="btn-primary">Сохранить достижения</button>
-        </form>*@
     </div>
 
     <a href="~/CatSmash.pdf" class="btn-link">Ссылка на презентацию</a>

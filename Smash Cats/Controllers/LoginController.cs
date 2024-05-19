@@ -16,7 +16,6 @@ namespace Smash_Cats.Controllers
 	{
 		private readonly ILogger<LoginController> _logger;
 		private IWebHostEnvironment webHost;
-		// private static bool _isSignIn = false;
 
 		public LoginController(ILogger<LoginController> logger, IWebHostEnvironment webHost)
 		{
@@ -44,11 +43,6 @@ namespace Smash_Cats.Controllers
 					rooms = JsonConvert.DeserializeObject<List<User>>(apiResponce);
 				}
 			}
-			/*if (_isSignIn)
-			{
-				return RedirectToAction("Index", "Personal");
-
-            }*/
 
             return View();
 		}
@@ -72,16 +66,14 @@ namespace Smash_Cats.Controllers
 
 			using (var httpClient = new HttpClient())
 			{
-				// Сериализация объекта пользователя в формат JSON
 				var jsonUser = JsonConvert.SerializeObject(user);
 
-				// HTTP-запроса POST для отправки данных пользователя на API
 				var response = await httpClient.PostAsync("http://localhost:5235/api/Login", new StringContent(jsonUser, Encoding.UTF8, "application/json"));
 
 				if (response.IsSuccessStatusCode)
 				{
 					_logger.LogInformation("Данные пользователя успешно отправлены на базу.");
-					// _isSignIn = false;
+
 					return RedirectToAction("Index", "Home");
 				}
 				else
@@ -133,7 +125,6 @@ namespace Smash_Cats.Controllers
                     var userJson = JsonConvert.SerializeObject(authenticatedUser);
                     HttpContext.Session.SetString("User", userJson);
 
-					// _isSignIn = true;
 
                     return RedirectToAction("Index", "Personal"/*, authenticatedUser*/ /*new { id = authenticatedUser.Id }*/);
                 }
@@ -145,10 +136,6 @@ namespace Smash_Cats.Controllers
 			}
 		}
 
-		/*public void setIsSignIn(bool isSignIn)
-		{
-			_isSignIn = isSignIn;
-		}*/
 
 
 		[HttpPost]

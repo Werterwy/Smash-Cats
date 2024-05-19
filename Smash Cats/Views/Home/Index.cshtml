@@ -17,9 +17,8 @@
         <h1 data-ix="fade-in-bottom-page-loads" class="hero-heading">This is Smash Cats</h1>
         <div data-ix="fade-in-bottom-page-loads" class="hero-subheading">Simple fighting game</div>
         <div data-ix="fade-in-bottom-page-loads">
-            @*<a asp-action="Index" asp-controller="Login" class="button">sign up</a>*@
-            <a asp-action="Index" asp-controller="Login" class="button" onclick="setIsSignIn(false)">sign up</a>
-            <a href="#" class="hollow-button all-caps">Learn more</a>
+            <a asp-action="Index" asp-controller="Login" class="button">sign up</a>
+            <a href="~/CatSmash.pdf" class="hollow-button all-caps">Learn more</a>
         </div>
     </div>
 </div>
@@ -67,7 +66,7 @@
                     <img src="images/short_game.jpg" alt="" class="fullwidth-image" />
                     <h3 class="white-text">Short sessions</h3>
                     <p class="white-text">Fights that last on average 3 minutes, as well as game obstacles that kill within 5 minutes.</p>
-                    <a href="#" class="hollow-button">Learn more</a>
+                    <a href="~/CatSmash.pdf" class="hollow-button">Learn more</a>
                 </div>
             </div>
             <div class="w-col w-col-6">
@@ -75,7 +74,7 @@
                     <img src="images/inter.jpg" sizes="(max-width: 479px) 85vw, (max-width: 767px) 89vw, (max-width: 991px) 43vw, 430px" srcset="images/inter-p-500.jpg 500w, images/inter.jpg 660w" alt="" class="fullwidth-image" />
                     <h3 class="white-text">Replay value</h3>
                     <p class="white-text">The game provides unique and exciting battles that motivate players to return again and again for new challenges and improved skills.</p>
-                    <a href="#" class="hollow-button all-caps">Learn more</a>
+                    <a href="~/CatSmash.pdf" class="hollow-button all-caps">Learn more</a>
                 </div>
             </div>
         </div>
@@ -178,14 +177,6 @@
 
             document.getElementById("cultureForm").action = culture;
             document.getElementById("cultureForm").submit();
-        }
-
-        function setIsSignIn(value) {
-            // Ваш код для обработки значения перед переходом
-            console.log("setIsSignIn called with value: " + value);
-
-            // Вернем true, чтобы продолжить переход по ссылке
-            return true;
         }
     </script>
 
